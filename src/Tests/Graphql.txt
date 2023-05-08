@@ -1,0 +1,110 @@
+query CVsFetch {
+  cvs {
+    id
+    name
+    age
+    job,
+    skills {
+      id
+    }
+    user {
+      id
+      name
+      email
+
+    }
+  }
+}
+
+query CVByID{
+  cv(id: "cv1") {
+    id ,
+    name,
+    age
+    skills {
+      id
+    } ,
+    user {
+      id ,
+      name ,
+      email
+    }
+  }
+}
+mutation createCV{
+   addCv(input: {
+     name: "Yvonne mzali",
+     age: 2,
+     job: "Disobedient Dog",
+     userId: "user2" ,
+     skillIds: ["skill1", "skill3"]
+   }) {
+     id
+     name
+     age
+     job
+     skills {
+       id
+     }
+      user {
+        id
+      }
+
+   }
+ }
+
+mutation updateCV{
+  updateCv(
+    input: {
+    id : "cv1" ,
+    age : 20 ,
+    job : "whatever" ,
+    name: "dunno",
+    skillIds: ["skill2"],
+    userId: "user2"
+  }) {
+    id
+    name
+    age
+    job
+    skills {
+      id
+    }
+    user {
+      id ,
+      name ,
+      email ,
+    	role
+    }
+  }
+}
+
+
+
+
+mutation deleteCV{
+  deleteCv(id: "cv1")
+}
+
+
+subscription MySubscription2 {
+  cvUpdated {
+    cv {
+      age
+      id
+      job
+      name
+      skills {
+        designation
+        id
+      }
+      user {
+        email
+        id
+        name
+        role
+      }
+    }
+    msg
+  }
+}
